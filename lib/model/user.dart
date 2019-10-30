@@ -8,9 +8,10 @@ class User {
   String user_gender;
   String user_dob;
   String user_edu;
+  List user_bkm;
 
   User(this.user_id, this.user_name, this.user_email, this.user_phone,
-      this.user_gender, this.user_dob, this.user_edu);
+      this.user_gender, this.user_dob, this.user_edu, this.user_bkm);
 
   User.map(dynamic obj) {
     this.user_id = obj['id'];
@@ -20,6 +21,7 @@ class User {
     this.user_gender = obj['gender'];
     this.user_dob = obj['dob'];
     this.user_edu = obj['edu'];
+    this.user_edu = obj['bkm'];
   }
 
   String get id => user_id;
@@ -36,6 +38,8 @@ class User {
 
   String get edu => user_edu;
 
+  List get bkm => user_bkm;
+
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
     if (user_id != null) {
@@ -47,6 +51,7 @@ class User {
     map['gender'] = user_gender;
     map['dob'] = user_dob;
     map['edu'] = user_edu;
+    map['bkm'] = user_bkm;
 
     return map;
   }
@@ -59,5 +64,6 @@ class User {
     this.user_gender = map['gender'];
     this.user_dob = map['dob'];
     this.user_edu = map['edu'];
+    this.user_bkm = map['bkm'];
   }
 }

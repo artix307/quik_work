@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quik_work/service/authentication.dart';
+import 'package:quik_work/service/service_user.dart';
 
 class LoginSignupPage extends StatefulWidget {
   LoginSignupPage({this.auth, this.loginCallback});
@@ -14,10 +15,17 @@ class LoginSignupPage extends StatefulWidget {
 class _LoginSignupPageState extends State<LoginSignupPage> {
   final _formKey = new GlobalKey<FormState>();
 
+  String _name;
   String _email;
+  String _phone;
+  String _gender;
+  String _dob;
+  String _edu;
+  List _bkm;
   String _password;
-  String _errorMessage;
 
+
+  String _errorMessage;
   bool _isLoginForm;
   bool _isLoading;
 
@@ -45,6 +53,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           print('Signed in: $userId');
         } else {
           userId = await widget.auth.signUp(_email, _password);
+          insertUser(userId);
           //widget.auth.sendEmailVerification();
           //_showVerifyEmailSentDialog();
           print('Signed up user: $userId');
@@ -143,8 +152,13 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             shrinkWrap: true,
             children: <Widget>[
               showLogo(),
+              _showNameInput(),
               showEmailInput(),
               showPasswordInput(),
+              _showPhoneInput(),
+              _showGenderInput(),
+              _showDobInput(),
+              _showEducationInput(),
               showPrimaryButton(),
               showSecondaryButton(),
               showErrorMessage(),
@@ -178,7 +192,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         child: CircleAvatar(
           backgroundColor: Colors.transparent,
           radius: 48.0,
-          child: Image.asset('assets/flutter-icon.png'),
+          child: Image.asset('assets/images/profile.jpg'),
         ),
       ),
     );
@@ -186,7 +200,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   Widget showEmailInput() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
         keyboardType: TextInputType.emailAddress,
@@ -222,6 +236,136 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     );
   }
 
+  Widget _showNameInput() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
+      child: new TextFormField(
+        maxLines: 1,
+        keyboardType: TextInputType.text,
+        autofocus: false,
+        decoration: new InputDecoration(
+            hintText: 'Name',
+            icon: new Icon(
+              Icons.border_color,
+              color: Colors.grey,
+            )),
+        validator: (value) {
+          if (value.isEmpty) {
+            setState(() {
+              _isLoading = false;
+            });
+            return 'Name can\'t be empty';
+          }
+        },
+        onSaved: (value) => _name = value,
+      ),
+    );
+  }
+
+  Widget _showPhoneInput() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+      child: new TextFormField(
+        maxLines: 1,
+        keyboardType: TextInputType.text,
+        autofocus: false,
+        decoration: new InputDecoration(
+            hintText: 'Phone Number',
+            icon: new Icon(
+              Icons.border_color,
+              color: Colors.grey,
+            )),
+        validator: (value) {
+          if (value.isEmpty) {
+            setState(() {
+              _isLoading = false;
+            });
+            return 'Phone number can\'t be empty';
+          }
+        },
+        onSaved: (value) => _phone = value,
+      ),
+    );
+  }
+
+  Widget _showGenderInput() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+      child: new TextFormField(
+        maxLines: 1,
+        keyboardType: TextInputType.text,
+        autofocus: false,
+        decoration: new InputDecoration(
+            hintText: 'Gender',
+            icon: new Icon(
+              Icons.border_color,
+              color: Colors.grey,
+            )),
+        validator: (value) {
+          if (value.isEmpty) {
+            setState(() {
+              _isLoading = false;
+            });
+            return 'Gender can\'t be empty';
+          }
+        },
+        onSaved: (value) => _gender = value,
+      ),
+    );
+  }
+
+  Widget _showDobInput() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+      child: new TextFormField(
+        maxLines: 1,
+        keyboardType: TextInputType.text,
+        autofocus: false,
+        decoration: new InputDecoration(
+            hintText: 'Date of Birth',
+            icon: new Icon(
+              Icons.border_color,
+              color: Colors.grey,
+            )),
+        validator: (value) {
+          if (value.isEmpty) {
+            setState(() {
+              _isLoading = false;
+            });
+            return 'Date of birth can\'t be empty';
+          }
+        },
+        onSaved: (value) => _dob = value,
+      ),
+    );
+  }
+
+  Widget _showEducationInput() {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+      child: new TextFormField(
+        maxLines: 1,
+        keyboardType: TextInputType.text,
+        autofocus: false,
+        decoration: new InputDecoration(
+            hintText: 'Education Level',
+            icon: new Icon(
+              Icons.border_color,
+              color: Colors.grey,
+            )),
+        validator: (value) {
+          if (value.isEmpty) {
+            setState(() {
+              _isLoading = false;
+            });
+            return 'Education level can\'t be empty';
+          }
+        },
+        onSaved: (value) => _edu = value,
+      ),
+    );
+  }
+
   Widget showSecondaryButton() {
     return new FlatButton(
         child: new Text(
@@ -246,4 +390,20 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
           ),
         ));
   }
+
+  //add data into firestore
+  FirebaseFirestoreService db = new FirebaseFirestoreService();
+
+  void insertUser(String id) {
+    _bkm = ['x', 'x'];
+    db.createUser(
+        _name,
+        _email,
+        _phone,
+        _gender,
+        _dob,
+        _edu,
+        _bkm);
+  }
 }
+

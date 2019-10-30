@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quik_work/service/service_job.dart';
 import 'package:quik_work/model/job.dart';
+import 'package:quik_work/ui/bookmark.dart';
 import 'package:quik_work/ui/job_list.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'dart:async';
 import 'package:quik_work/service/authentication.dart';
+import 'package:quik_work/ui/profile.dart';
 
 class Home extends StatefulWidget {
   Home({Key key, this.auth, this.userId, this.logoutCallback})
@@ -36,17 +38,19 @@ class _HomeState extends State<Home> {
                   child: new TabBar(
                     tabs: [
                       Tab(
-                        icon: Icon(Icons.chat),
-                        text: 'jnjn',
+                        icon: Icon(Icons.card_travel),
+                        text: 'Job',
                       ),
-                      Tab(icon: Icon(Icons.calendar_today)),
-                      Tab(icon: Icon(Icons.bubble_chart)),
+                      Tab(icon: Icon(Icons.bookmark),
+                          text: 'Bookmark'),
+                      Tab(icon: Icon(Icons.face),
+                          text: 'Profile'),
                     ],
                     labelColor: Colors.red,
-                    unselectedLabelColor: Colors.black12,
+                    unselectedLabelColor: Colors.white,
                     indicatorSize: TabBarIndicatorSize.tab,
                     indicatorPadding: EdgeInsets.all(5.0),
-                    indicatorColor: Colors.grey,
+                    indicatorColor: Colors.white,
                   ),
                 ),
               ),
@@ -54,8 +58,8 @@ class _HomeState extends State<Home> {
                 // physics: NeverScrollableScrollPhysics(),
                 children: [
                   JobList(),
-                  Icon(Icons.chat),
-                  Icon(Icons.bubble_chart),
+                  Bookmark(),
+                  Profile(widget.auth, widget.userId, widget.logoutCallback),
                 ],
               ),
             ),
