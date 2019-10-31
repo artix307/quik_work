@@ -53,7 +53,7 @@ class _JobListState extends State<JobList> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => JobDetail(Job(null, '', '', '', '', ''))),
+          builder: (context) => JobDetail(job)),
     );
   }
 

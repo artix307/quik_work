@@ -19,15 +19,6 @@ class JobDetail extends StatefulWidget {
 class _JobDetail extends State<JobDetail> {
   FirebaseFirestoreService db = new FirebaseFirestoreService();
 
-  Widget titleSection = Container(
-    padding: const EdgeInsets.all(32),
-    child: Row(
-      children: [
-        Text('hi'),
-        Text('World'),
-      ],
-    ),
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +30,15 @@ class _JobDetail extends State<JobDetail> {
       ),
       body: Column(
         children: [
-          titleSection,
+          Container(
+            padding: const EdgeInsets.all(32),
+            child: Row(
+              children: [
+                Text(widget.job.position),
+                Text('World'),
+              ],
+            ),
+          ),
         ],
       ),
     );
