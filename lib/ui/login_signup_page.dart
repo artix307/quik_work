@@ -213,9 +213,13 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             shrinkWrap: true,
             children: <Widget>[
               _showLogo(),
-              _showEmailInput(),
               _showNameInput(),
+              _showEmailInput(),
               _showPasswordInput(),
+              _showPhoneInput(),
+              _showGenderInput(),
+              _showDobInput(),
+              _showEducationInput(),
               _showPrimaryButton(),
               _showSecondaryButton(),
               _showErrorMessage(),
@@ -295,7 +299,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
 
   Widget _showNameInput() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(0.0, 100.0, 0.0, 0.0),
+      padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
         keyboardType: TextInputType.text,
@@ -303,7 +307,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         decoration: new InputDecoration(
             hintText: 'Name',
             icon: new Icon(
-              Icons.border_color,
+              Icons.account_box,
               color: Colors.grey,
             )),
         validator: (value) {
@@ -329,7 +333,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         decoration: new InputDecoration(
             hintText: 'Phone Number',
             icon: new Icon(
-              Icons.border_color,
+              Icons.phone,
               color: Colors.grey,
             )),
         validator: (value) {
@@ -355,7 +359,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         decoration: new InputDecoration(
             hintText: 'Gender',
             icon: new Icon(
-              Icons.border_color,
+              Icons.face,
               color: Colors.grey,
             )),
         validator: (value) {
@@ -381,7 +385,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         decoration: new InputDecoration(
             hintText: 'Date of Birth',
             icon: new Icon(
-              Icons.border_color,
+              Icons.calendar_today,
               color: Colors.grey,
             )),
         validator: (value) {
@@ -407,7 +411,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         decoration: new InputDecoration(
             hintText: 'Education Level',
             icon: new Icon(
-              Icons.border_color,
+              Icons.school,
               color: Colors.grey,
             )),
         validator: (value) {
@@ -447,7 +451,10 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
             shape: new RoundedRectangleBorder(
                 borderRadius: new BorderRadius.circular(30.0)),
             color: Colors.blue,
-            child: new Text(_isLoginForm ? 'Login' : 'Create account',
+            child: _formMode == FormMode.LOGIN
+                ? new Text('Login',
+                style: new TextStyle(fontSize: 20.0, color: Colors.white))
+                : new Text('Create account',
                 style: new TextStyle(fontSize: 20.0, color: Colors.white)),
             onPressed: _validateAndSubmit,
           ),
