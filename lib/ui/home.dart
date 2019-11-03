@@ -34,7 +34,7 @@ class _HomeState extends State<Home> {
             child: Scaffold(
               bottomNavigationBar: Container(
                 child: Material(
-                  color: Colors.grey,
+                  color: Colors.white,
                   child: new TabBar(
                     tabs: [
                       Tab(
@@ -46,11 +46,11 @@ class _HomeState extends State<Home> {
                       Tab(icon: Icon(Icons.face),
                           text: 'Profile'),
                     ],
-                    labelColor: Colors.red,
-                    unselectedLabelColor: Colors.white,
+                    labelColor: Colors.deepOrangeAccent,
+                    unselectedLabelColor: Colors.grey,
                     indicatorSize: TabBarIndicatorSize.tab,
                     indicatorPadding: EdgeInsets.all(5.0),
-                    indicatorColor: Colors.white,
+                    indicatorColor: Colors.deepOrangeAccent,
                   ),
                 ),
               ),

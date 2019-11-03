@@ -27,6 +27,8 @@ dependencies:
   image_picker: ^0.6.1+10
   firebase_auth: ^0.14.0+5
   firebase_database: ^3.0.7
+  flutter_search_panel: ^1.0.1
+  material_search: ^0.2.8
 
 dev_dependencies:
   flutter_test:

@@ -27,6 +27,7 @@ class _JobDetail extends State<JobDetail> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: <Widget>[],
       ),
       body: Column(
         children: [
@@ -35,7 +36,17 @@ class _JobDetail extends State<JobDetail> {
             child: Row(
               children: [
                 Text(widget.job.position),
-                Text('World'),
+                Expanded(
+                  child: Column(
+                    children: <Widget>[
+                      Text(widget.job.salary),
+                      Icon(
+                        Icons.star,
+                      )
+                    ],
+                  ),
+
+                )
               ],
             ),
           ),
