@@ -4,10 +4,14 @@ class Job {
   String job_salary;
   String job_salary_type;
   String job_description;
+  String job_requirement;
+  String job_benefit;
   String employer_id;
 
+
   Job(this.job_id, this.job_position, this.job_salary, this.job_salary_type,
-      this.job_description, this.employer_id);
+      this.job_description, this.employer_id, this.job_benefit,
+      this.job_requirement);
 
   Job.map(dynamic obj) {
     this.job_id = obj['id'];
@@ -16,6 +20,8 @@ class Job {
     this.job_salary_type = obj['salaryType'];
     this.job_description = obj['description'];
     this.employer_id = obj['empId'];
+    this.job_benefit = obj['benefit'];
+    this.job_requirement = obj['requirement'];
   }
 
   String get id => job_id;
@@ -30,6 +36,10 @@ class Job {
 
   String get empId => employer_id;
 
+  String get benefit => job_benefit;
+
+  String get requirement => job_requirement;
+
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
     if (job_id != null) {
@@ -40,6 +50,8 @@ class Job {
     map['salaryType'] = job_salary_type;
     map['description'] = job_description;
     map['empId'] = employer_id;
+    map['benefit'] = job_benefit;
+    map['requirement'] = job_requirement;
 
     return map;
   }
@@ -51,5 +63,7 @@ class Job {
     this.job_salary_type = map['salaryType'];
     this.job_description = map['description'];
     this.employer_id = map['empId'];
+    this.job_benefit = map['benefit'];
+    this.job_requirement = map['requirement'];
   }
 }

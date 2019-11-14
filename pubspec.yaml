@@ -29,6 +29,7 @@ dependencies:
   firebase_database: ^3.0.7
   flutter_search_panel: ^1.0.1
   material_search: ^0.2.8
+  flutter_cupertino_date_picker: ^1.0.12
 
 dev_dependencies:
   flutter_test:

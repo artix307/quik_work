@@ -2,13 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:quik_work/service/authentication.dart';
 import 'package:quik_work/ui/root_page.dart';
 
-//import 'package:quik_work/ui/home.dart';
-//import 'package:quik_work/ui/listview_note.dart';
-//import 'package:quik_work/ui/job_list.dart';
-//import 'package:quik_work/ui/home_open.dart';
-//import 'package:quik_work/ui/root_page.dart';
-
-
 void main() {
   runApp(MyApp());
 }

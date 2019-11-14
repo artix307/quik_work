@@ -1,14 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:quik_work/service/service_job.dart';
-import 'package:quik_work/model/job.dart';
-import 'package:quik_work/ui/bookmark.dart';
-import 'package:quik_work/ui/job_list.dart';
-import 'package:firebase_database/firebase_database.dart';
-import 'dart:async';
 import 'package:quik_work/service/authentication.dart';
-import 'package:quik_work/ui/profile.dart';
 
 class Home extends StatefulWidget {
   Home({Key key, this.auth, this.userId, this.logoutCallback})
@@ -34,7 +25,7 @@ class _HomeState extends State<Home> {
             child: Scaffold(
               bottomNavigationBar: Container(
                 child: Material(
-                  color: Colors.white,
+                  color: Colors.white30,
                   child: new TabBar(
                     tabs: [
                       Tab(
@@ -57,11 +48,15 @@ class _HomeState extends State<Home> {
               body: TabBarView(
                 // physics: NeverScrollableScrollPhysics(),
                 children: [
-                  JobList(),
-                  Bookmark(),
-                  Profile(widget.auth, widget.userId, widget.logoutCallback),
+                  Icon(Icons.face),
+                  Icon(Icons.face),
+                  Icon(Icons.face),
+
+//                  JobList(),
+//                  Bookmark(),
+//                  Profile(widget.auth, widget.userId, widget.logoutCallback),
                 ],
-              ),
+              ), //ni error apa pulak/????????? sat
             ),
           );
         },

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quik_work/service/authentication.dart';
 import 'package:quik_work/ui/login_signup_page.dart';
-import 'package:quik_work/ui/home.dart';
+
+import 'home.dart';
 
 enum AuthStatus {
   NOT_DETERMINED,
@@ -31,7 +32,7 @@ class _RootPageState extends State<RootPage> {
           _userId = user?.uid;
         }
         authStatus =
-            user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
+        user?.uid == null ? AuthStatus.NOT_LOGGED_IN : AuthStatus.LOGGED_IN;
       });
     });
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quik_work/service/authentication.dart';
-import 'package:quik_work/service/service_user.dart';
+import 'package:quik_work/service/firebaseFirestoreService.dart';
 
 class LoginSignupPage extends StatefulWidget {
   LoginSignupPage({this.auth, this.loginCallback});
@@ -17,13 +17,14 @@ enum FormMode { LOGIN, SIGNUP }
 class _LoginSignupPageState extends State<LoginSignupPage> {
   final _formKey = new GlobalKey<FormState>();
 
+  String _picture = 'x';
   String _name;
   String _email;
   String _phone;
-  String _gender;
-  String _dob;
-  String _edu;
-  List _bkm;
+  String _gender = 'x';
+  String _dob = 'x';
+  String _edu = 'x';
+  String _about = 'x';
   String _password;
 
 
@@ -67,6 +68,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
         }
         setState(() {
           _isLoading = false;
+          _formMode = FormMode.LOGIN;
         });
 
         if (userId != null &&
@@ -217,9 +219,6 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
               _showEmailInput(),
               _showPasswordInput(),
               _showPhoneInput(),
-              _showGenderInput(),
-              _showDobInput(),
-              _showEducationInput(),
               _showPrimaryButton(),
               _showSecondaryButton(),
               _showErrorMessage(),
@@ -328,7 +327,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
       child: new TextFormField(
         maxLines: 1,
-        keyboardType: TextInputType.text,
+        keyboardType: TextInputType.phone,
         autofocus: false,
         decoration: new InputDecoration(
             hintText: 'Phone Number',
@@ -375,6 +374,41 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
     );
   }
 
+//  Widget _showGenderInput(){
+//    String selected;
+//
+//    return Padding(
+//      padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
+//      child: new DropdownButtonFormField(
+//        decoration: new InputDecoration(
+//          hintText: 'Gender',
+//          icon: Icon(
+//            Icons.face,
+//            color: Colors.grey,
+//          ),
+//        ),
+//        value: selected,
+//        items: ["Male", "Female"]
+//            .map((label) => DropdownMenuItem(
+//              child: Text(label),
+//              value: label,
+//              )
+//            ).toList(),
+//          validator: (value) {
+//            if (value.isEmpty) {
+//    setState(() {
+//    _isLoading = false;
+//    });
+//    return 'Gender can\'t be empty';
+//    }
+//  },
+//        onChanged: (value) {
+//          setState(() => selected = value);
+//        },
+//      ),
+//    );
+//  }
+
   Widget _showDobInput() {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 15.0, 0.0, 0.0),
@@ -400,6 +434,7 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
       ),
     );
   }
+
 
   Widget _showEducationInput() {
     return Padding(
@@ -465,15 +500,15 @@ class _LoginSignupPageState extends State<LoginSignupPage> {
   FirebaseFirestoreService db = new FirebaseFirestoreService();
 
   void insertUser(String id) {
-    _bkm = ['x', 'x'];
     db.createUser(
+        id,
+        _picture,
         _name,
         _email,
         _phone,
         _gender,
         _dob,
         _edu,
-        _bkm);
+        _about);
   }
 }
-
