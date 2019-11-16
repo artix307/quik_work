@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:quik_work/service/authentication.dart';
+import 'package:quik_work/ui/job_list.dart';
+import 'package:quik_work/ui/profile.dart';
+import 'package:quik_work/ui/request.dart';
 
 class Home extends StatefulWidget {
   Home({Key key, this.auth, this.userId, this.logoutCallback})
@@ -32,8 +35,8 @@ class _HomeState extends State<Home> {
                         icon: Icon(Icons.card_travel),
                         text: 'Job',
                       ),
-                      Tab(icon: Icon(Icons.bookmark),
-                          text: 'Bookmark'),
+                      Tab(icon: Icon(Icons.list),
+                          text: 'Request'),
                       Tab(icon: Icon(Icons.face),
                           text: 'Profile'),
                     ],
@@ -48,15 +51,13 @@ class _HomeState extends State<Home> {
               body: TabBarView(
                 // physics: NeverScrollableScrollPhysics(),
                 children: [
-                  Icon(Icons.face),
-                  Icon(Icons.face),
-                  Icon(Icons.face),
 
-//                  JobList(),
-//                  Bookmark(),
-//                  Profile(widget.auth, widget.userId, widget.logoutCallback),
+
+                  JobList(widget.auth, widget.userId, widget.logoutCallback),
+                  Request(widget.auth, widget.userId, widget.logoutCallback),
+                  Profile(widget.auth, widget.userId, widget.logoutCallback),
                 ],
-              ), //ni error apa pulak/????????? sat
+              ),
             ),
           );
         },
