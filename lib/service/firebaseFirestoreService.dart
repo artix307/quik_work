@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:quik_work/model/employer.dart';
 import 'package:quik_work/model/job.dart';
+import 'package:quik_work/model/request.dart';
 import 'package:quik_work/model/user.dart';
 
 final CollectionReference userCollection =
@@ -8,6 +9,9 @@ final CollectionReference userCollection =
 final CollectionReference jobCollection = Firestore.instance.collection('jobs');
 final CollectionReference employerCollection =
     Firestore.instance.collection('employers');
+final CollectionReference requestCollection =
+Firestore.instance.collection('requests');
+
 
 class FirebaseFirestoreService {
   static final FirebaseFirestoreService _instance =
@@ -242,6 +246,81 @@ class FirebaseFirestoreService {
   Future<dynamic> deleteEmployer(String id) async {
     final TransactionHandler deleteTransaction = (Transaction tx) async {
       final DocumentSnapshot ds = await tx.get(employerCollection.document(id));
+
+      await tx.delete(ds.reference);
+      return {'deleted': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(deleteTransaction)
+        .then((result) => result['deleted'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
+  }
+
+  //request service
+  Future<Request> createRequest(String status, String initial,
+      String empId, String userId, String jobId) async {
+    final TransactionHandler createTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(requestCollection.document());
+
+      final Request request = new Request(
+          ds.documentID, status, initial, empId, userId, jobId);
+      final Map<String, dynamic> data = request.toMap();
+
+      await tx.set(ds.reference, data);
+
+      return data;
+    };
+
+    return Firestore.instance.runTransaction(createTransaction).then((mapData) {
+      return Request.fromMap(mapData);
+    }).catchError((error) {
+      print('error: $error');
+      return null;
+    });
+  }
+
+  //can copy
+  Stream<QuerySnapshot> getRequestList({int offset, int limit}) {
+    Stream<QuerySnapshot> snapshots = requestCollection.snapshots();
+
+    if (offset != null) {
+      snapshots = snapshots.skip(offset);
+    }
+
+    if (limit != null) {
+      snapshots = snapshots.take(limit);
+    }
+
+    return snapshots;
+  }
+
+  //update
+  Future<dynamic> updateRequest(Request request) async {
+    final TransactionHandler updateTransacation = (Transaction tx) async {
+      final DocumentSnapshot ds =
+      await tx.get(requestCollection.document(request.id));
+
+      await tx.update(ds.reference, request.toMap());
+      return {'updated': true};
+    };
+
+    return Firestore.instance
+        .runTransaction(updateTransacation)
+        .then((result) => result['updated'])
+        .catchError((error) {
+      print('error: $error');
+      return false;
+    });
+  }
+
+  //delete
+  Future<dynamic> deleteRequest(String id) async {
+    final TransactionHandler deleteTransaction = (Transaction tx) async {
+      final DocumentSnapshot ds = await tx.get(requestCollection.document(id));
 
       await tx.delete(ds.reference);
       return {'deleted': true};

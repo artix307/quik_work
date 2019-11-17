@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:quik_work/service/authentication.dart';
 import 'package:quik_work/ui/job_list.dart';
 import 'package:quik_work/ui/profile.dart';
-import 'package:quik_work/ui/request.dart';
+import 'package:quik_work/ui/request_status.dart';
+
 
 class Home extends StatefulWidget {
   Home({Key key, this.auth, this.userId, this.logoutCallback})
@@ -54,7 +55,8 @@ class _HomeState extends State<Home> {
 
 
                   JobList(widget.auth, widget.userId, widget.logoutCallback),
-                  Request(widget.auth, widget.userId, widget.logoutCallback),
+                  RequestStatus(
+                      widget.auth, widget.userId, widget.logoutCallback),
                   Profile(widget.auth, widget.userId, widget.logoutCallback),
                 ],
               ),

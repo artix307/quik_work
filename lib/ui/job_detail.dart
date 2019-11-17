@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:quik_work/model/job.dart';
 import 'package:quik_work/service/authentication.dart';
 import 'package:quik_work/service/firebaseFirestoreService.dart';
-import 'package:quik_work/ui/request.dart';
+
 
 class JobDetail extends StatefulWidget {
-  //const JobDetail(Job job, {Key key}) : super(key: key);
 
   final Job job;
   final BaseAuth auth;
@@ -21,14 +20,20 @@ class JobDetail extends StatefulWidget {
 class _JobDetail extends State<JobDetail> {
   FirebaseFirestoreService db = new FirebaseFirestoreService();
 
-  void _NavigationToRequest(BuildContext context) async {
-    await Navigator.push(
-      context,
-      MaterialPageRoute(
-          builder: (context) =>
-              Request(widget.auth, widget.userId, widget.logoutCallback)),
-    );
-  }
+
+  String status = 'Pending';
+  String initial = '0';
+
+//  void _NavigationToRequest(BuildContext context) async {
+//    initial = '1';
+//    db.createRequest(status, initial, widget.job.empId, widget.userId, widget.job.job_id);
+//    await Navigator.push(
+//      context,
+//      MaterialPageRoute(
+//          builder: (context) =>
+//              RequestStatus(widget.auth, widget.userId, widget.logoutCallback)),
+//    );
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +172,7 @@ class _JobDetail extends State<JobDetail> {
           ),
           Container(
             child: RaisedButton(
-              onPressed: () => _NavigationToRequest(context),
+              //onPressed: () => _NavigationToRequest(context),
               child: const Text('Apply Job', style: TextStyle(fontSize: 20)),
             ),
           ),
